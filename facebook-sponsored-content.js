@@ -12,7 +12,7 @@ function removeSponsored() {
 		"[data-pagelet^='FeedUnit_']:not(.facebook-sponsored) [aria-label='Sponsored'], \
 		 [data-pagelet^='FeedUnit_']:not(.facebook-sponsored) [aria-label='ממומן']"
 	);
-    console.log(sponsoredLabels);
+
 	Array.prototype.forEach.call(sponsoredLabels, function(sponsored, i) {
 		var feedUnit = getFeedUnit(sponsored);
 		if (feedUnit.id == '') {
