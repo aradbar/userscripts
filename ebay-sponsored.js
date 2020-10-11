@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         ebay.com sponsored
-// @include      /www\.ebay\.com\/sch\//
+// @name		 ebay.com sponsored
+// @include	  /www\.ebay\.com\/sch\//
 // ==/UserScript==
 
 
@@ -19,13 +19,13 @@ function emphasizeSponsored() {
 
 
 (function() {
-    'use strict';
+	'use strict';
 
-    setTimeout(
-        function() {
-            emphasizeSponsored();
+	setTimeout(
+		function() {
+			emphasizeSponsored();
 			document.querySelector("#mainContent").addEventListener('DOMSubtreeModified', emphasizeSponsored);
-        },
-        1000
-    );
+		},
+		1000
+	);
 })();
