@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name		 ebay.com sponsored
-// @include	  /www\.ebay\.com\/sch\//
+// @name             ebay.com sponsored
+// @include	         /www\.ebay\.com\/sch\//
 // ==/UserScript==
 
 
