@@ -13,7 +13,7 @@ function emphasizeSponsored() {
 		sponsored.style.backgroundColor = 'red';
 		sponsored.style.color = 'white';
 		sponsored.style.borderRadius = '5px';
-        sponsored.style.fontSize = '15px';
+		sponsored.style.fontSize = '15px';
 	});
 }
 
