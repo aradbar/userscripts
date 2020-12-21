@@ -1,25 +1,31 @@
 // ==UserScript==
-// @name         facebook.com sponsored
-// @include      /www\.facebook\.com/
+// @name		 facebook.com sponsored
+// @include	  /www\.facebook\.com/
 // ==/UserScript==
-
-function getFeedUnit(sponsoredAriaLabel) {
-	return sponsoredAriaLabel.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
-}
 
 function removeSponsored() {
 	var sponsoredLabels = document.querySelectorAll(
-		"[data-pagelet^='FeedUnit_']:not(.facebook-sponsored) [aria-label='Sponsored'], \
-		 [data-pagelet^='FeedUnit_']:not(.facebook-sponsored) [aria-label='ממומן']"
+		"[data-pagelet^='FeedUnit_']:not(.facebook-sponsored)"
 	);
 
-	Array.prototype.forEach.call(sponsoredLabels, function(sponsored, i) {
-		var feedUnit = getFeedUnit(sponsored);
+	Array.prototype.forEach.call(sponsoredLabels, function(feedUnit, i) {
 		if (feedUnit.id == '') {
 
 			var id = 'facebook-sponsored-' + unsafeWindow.facebookSponsoredId;
 			feedUnit.setAttribute('id', id);
 			feedUnit.classList.add('facebook-sponsored');
+			unsafeWindow.facebookSponsoredId++;
+
+			var spans = [...document.querySelectorAll('#' + id + ' span')];
+			var spansHTML = spans.map(function(span, i) {
+				if (span.innerHTML.length == 1 && span.style.position != 'absolute') {
+					return span.innerHTML;
+				}
+				return '';
+			});
+			if (!(spansHTML.includes('S') && spansHTML.includes('p') && spansHTML.includes('o'))) {
+				return
+			}
 
 			var header = document.querySelector('#' + id + ' h4');
 			var showId = id + '-show';
@@ -30,7 +36,7 @@ function removeSponsored() {
 			content.setAttribute('id', contentId);
 			content.style.display = 'none';
 
-			var show = document.querySelector('#' + showId).onclick = function() {
+			document.querySelector('#' + showId).onclick = function() {
 				var content = document.querySelector('#' + contentId);
 
 				if (content.style.display == 'none') {
@@ -45,22 +51,20 @@ function removeSponsored() {
 					this.innerHTML = '(show)';
 				};
 			};
-
-			unsafeWindow.facebookSponsoredId++;
 		}
 	});
 }
 
 (function() {
-    'use strict';
+	'use strict';
 
 	unsafeWindow.facebookSponsoredId = 1;
 
-    setTimeout(
-        function() {
-            removeSponsored();
-            document.querySelector("body").addEventListener('DOMSubtreeModified', function() { removeSponsored(); });
-        },
-        1000
-    );
+	setTimeout(
+		function() {
+			removeSponsored();
+			document.querySelector("body").addEventListener('DOMSubtreeModified', function() { removeSponsored(); });
+		},
+		1000
+	);
 })();
