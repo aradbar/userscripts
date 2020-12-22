@@ -16,6 +16,9 @@ function removeSponsored() {
 			feedUnit.classList.add('facebook-sponsored');
 			unsafeWindow.facebookSponsoredId++;
 
+			var isSponsored = false;
+
+			// EN
 			var spans = [...document.querySelectorAll('#' + id + ' span')];
 			var spansHTML = spans.map(function(span, i) {
 				if (span.innerHTML.length == 1 && span.style.position != 'absolute') {
@@ -23,7 +26,21 @@ function removeSponsored() {
 				}
 				return '';
 			});
-			if (!(spansHTML.includes('S') && spansHTML.includes('p') && spansHTML.includes('o'))) {
+			if (spansHTML.includes('S') && spansHTML.includes('p') && spansHTML.includes('o')) {
+				isSponsored = true;
+			}
+
+			// HE
+			if (!isSponsored) {
+				Array.prototype.forEach.call(document.querySelectorAll('#' + id + ' b'), function(btag, i) {
+					if (btag.innerHTML == 'ממומן') {
+						isSponsored = true;
+					}
+				})
+			}
+			
+
+			if (!isSponsored) {
 				return
 			}
 
