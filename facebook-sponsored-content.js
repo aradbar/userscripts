@@ -26,7 +26,7 @@ function removeSponsored() {
 				}
 				return '';
 			});
-			if (spansHTML.includes('S') && spansHTML.includes('p') && spansHTML.includes('o')) {
+			if (spansHTML.includes('p') && spansHTML.includes('o') && spansHTML.includes('n')) {
 				isSponsored = true;
 			}
 
@@ -38,7 +38,7 @@ function removeSponsored() {
 					}
 				})
 			}
-			
+
 
 			if (!isSponsored) {
 				return
