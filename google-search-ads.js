@@ -10,7 +10,11 @@ function markAds() {
 		var id = 'google-ad-' + i;
 		ad.setAttribute('id', id);
 
-		var adTitlePart = ad.firstChild;
+		var adTitlePart = ad.children[0];
+		if (!adTitlePart.innerText.includes('Ad·')) {
+		    adTitlePart = ad.children[1];
+		}
+
 		adTitlePart.classList.add('ad-part-visible');
 
 		Array.prototype.forEach.call(ad.children, function(adPart, i) {
@@ -31,7 +35,7 @@ function markAds() {
 
 			Array.prototype.forEach.call(adParts, function(adPart, i) {
 				if (adPart.style.display == 'none') {
-					adPart.style.display = '';
+                    adPart.style.display = '';
 				} else {
 					adPart.style.display = 'none';
 				};
@@ -51,5 +55,5 @@ function markAds() {
 
 (function() {
 	'use strict';
-	setTimeout(markAds, 1000);
+    markAds();
 })();
